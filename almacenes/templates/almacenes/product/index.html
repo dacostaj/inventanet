@@ -1,0 +1,114 @@
+{% extends "almacenes/master.html" %}
+{% load staticfiles %}
+
+{% block title %}Index - Net-Technology{% endblock title %}
+
+
+{% block css %}
+
+<!-- DataTables -->
+  <link rel="stylesheet" href="{% static 'bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'personal/css/btnflotante.css' %}">
+  <link rel="stylesheet" href="{% static 'personal/css/estilo.css' %}">
+
+{% endblock css %}
+
+  
+{% block PanelControl %}Productos de Almacén{% endblock PanelControl %}
+
+{% block content %}
+<div id="alerta"></div>
+
+<div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          
+            <div class="box">
+            
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="idtablaarticulo" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Descripción</th>
+                  <th>Marca</th>
+                  <th>Modelo</th>
+                  <th>Código</th>
+                  <th>Categoría</th>
+                  <th>Imagen</th>
+                  <th>Acción</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for pro in product  %}
+                  
+                  <tr>
+                      <td>{{pro.id}}</td>
+                      <td>{{pro.description}}</td>
+                      <td>{{pro.mark}}</td>
+                      <td>{{pro.model}}</td>
+                      <td>{{pro.code}}</td>
+                      <td>{{pro.categori.name}}</td>
+                      <td><img src="{% static 'media/default.png' %}" height="60px" width="60px" class="img-thumbnail"></td>
+                      <td>
+                        <button value="{{pro.id}}" data-target="#modal-update-{{pro.id}}" data-toggle="modal" class="btn btn-primary btn-edit"><i class="fa fa-edit"></i></button>
+                        <button value="{{pro.id}}" class="btn btn-danger btn-destroy"><i class="fa fa-close"></i></button>
+
+                     </td>
+                    </tr>   
+                    {% include "almacenes/product/edit.html" %} 
+                  {% endfor %}  
+                   
+                
+                                          
+                 </tbody>
+                
+              </table>
+                             
+            </div>
+            <!-- /.box-body -->
+
+          </div>
+         
+
+          <!-- /.info-box -->
+        </div>
+        
+   </div>
+      <!-- /.row -->
+
+<div class="contenedor">
+  <button type="button" class="botonF btn-primary" data-toggle="modal" data-target="#modal-create"><i class="fa fa-plus"></i></button>
+  </div>
+{% include "almacenes/product/create.html" %}
+
+
+{% block script %}
+  
+  <!-- DataTables -->
+  <script src="{% static 'bower_components/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+    <script>
+
+      $(function () {
+        $('#idtablaarticulo').DataTable(
+          {
+            
+            'lengthMenu'  : [7, 15, 20, 50, 100]
+        });
+       
+      });
+    </script>
+
+    <script src="{% static 'personal/js/product/updatecategoria.js' %}"></script>
+    <script src="{% static 'personal/js/product/destroy.js' %}"></script>
+    <script src="{% static 'personal/js/product/create.js' %}"></script>
+   
+    
+
+    {% endblock script %}
+ 
+
+  
+{% endblock content %}
+	

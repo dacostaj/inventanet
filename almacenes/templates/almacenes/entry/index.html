@@ -1,0 +1,153 @@
+{% extends "almacenes/master.html" %}
+{% load staticfiles %}
+
+{% block title %}Index - Net-Technology{% endblock title %}
+
+
+{% block css %}
+  <!-- DataTables -->
+  <link rel="stylesheet" href="{% static 'bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'personal/css/btnflotante.css' %}">
+  <link rel="stylesheet" href="{% static 'personal/css/estilo.css' %}">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="{% static 'bower_components/select2/dist/css/select2.min.css' %}">
+
+{% endblock css %}
+
+
+{% block PanelControl %}Gestion de Compra{% endblock PanelControl %}
+
+{% block content %}
+
+	
+<div id="alerta"></div>
+
+<div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          
+            <div class="box">
+            
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="idtablaingreso" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Fecha</th>
+                  <th>Proveedor</th>
+                  <th>Orden de Compra</th>
+                  <th>Total</th>
+                  <th>Acción</th>
+                </tr>
+                </thead>
+                <tbody>
+
+
+                {% for ent in entry  %}
+              
+              		<tr>
+	                  <td>{{ent.id}}</td>
+	                  <td>{{ent.fecha_hora}}</td>
+	                  <td>{{ent.person}}</td>
+                    <td>{{ent.code_fact}}</td>
+                    <td>{{ent.total}}</td>
+                    <td>
+	                    
+                      <button value="{{ent.id}}" class="btn btn-info btn-show"><i class="fa fa-eye"></i></button>
+                      
+                      <button value="{{ent.id}}" class="btn btn-danger btn-destroy"><i class="fa fa-close"></i></button>
+                      
+                      <button type="submit" value="{{ent.id}}" class="btn btn-primary btn-barcode"><i class="fa fa-barcode"></i></button>
+                                            
+
+                 	 </td>
+                	</tr>
+                  
+                {% endfor %}  
+                                         	
+                 </tbody>
+                
+              </table>
+
+              {% include "almacenes/entry/show.html" %} 
+                            
+            </div>
+            <!-- /.box-body -->
+
+          </div>
+         
+
+          <!-- /.info-box -->
+        </div>
+        
+   </div>
+      <!-- /.row -->
+
+<div class="contenedor">
+	<button type="button" class="botonF btn-primary" data-toggle="modal" data-target="#modal-create" id="btn-create"><i class="fa fa-plus"></i></button>
+	</div>
+
+{% include "almacenes/entry/create.html" %}
+
+
+
+{% block script %}
+
+	<!-- DataTables -->
+	<script src="{% static 'bower_components/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+	<script src="{% static 'bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+		<script>
+
+		  $(function () {
+		    $('#idtablaingreso').DataTable(
+          {
+            'lengthMenu'  : [7, 10, 20, 50, 100],
+             
+        });
+        $('#idtabladetalle').DataTable({
+            'paging'      : true,
+            'lengthChange': false,
+            'searching'   : false,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : false,
+            'lengthMenu'  : [15, 20, 30, 50, 100]
+        });
+
+        $('#tablamodaldetalle').DataTable({
+            'paging'      : true,
+            'lengthChange': false,
+            'searching'   : false,
+            'ordering'    : true,
+            'info'        : true,
+            'autoWidth'   : false,
+            'lengthMenu'  : [3, 5, 10, 20, 50]
+        });
+		   
+		  });
+		</script>
+    <!-- DataTables -->
+
+    <script src="{% static 'personal/js/entry/entry.js' %}"></script>
+    <script src="{% static 'personal/js/entry/show.js' %}"></script>
+    <script src="{% static 'personal/js/destroy.js' %}"></script>
+    <!-- Select2 -->
+    <script src="{% static 'bower_components/select2/dist/js/select2.full.min.js' %}"></script>
+    
+    <script>
+        $(function () {
+          //Initialize Select2 Elements
+          $('.select2').select2()
+                
+        });
+    </script>
+    
+
+		
+ {% endblock script %}
+ 
+
+  
+{% endblock content %}
+  
+

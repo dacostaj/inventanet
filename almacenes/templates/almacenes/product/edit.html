@@ -1,0 +1,93 @@
+{% load staticfiles %}
+<div class="modal fade" id="modal-update-{{pro.id}}">
+
+  <!-- form start -->
+  <form method="POST" action="" id="{{pro.id}}" enctype="multipart/form-data">
+  {% csrf_token %}
+    
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Editar Producto</h4>
+              </div>
+              <div class="modal-body">
+                <!-- form start -->
+                <div class="box-body form-horizontal">
+
+                  <div class="panel panel-default">
+                    <div class="panel-heading">
+
+                     <div class="form-group">
+                        
+                        <div class="col-sm-6">
+                          <label for="inputdescripcion">Descripcion</label>
+                          <input type="text" name="description" class="form-control" id="inputdescripcion" value="{{pro.description}}" required="true">
+                        </div>
+
+                        <div class="col-sm-3">
+                          <label for="inputmarca">Marca</label>
+                          <input type="text" name="mark" class="form-control" id="inputmarca"  value="{{pro.mark}}">
+                        </div>
+                    
+                        <div class="col-sm-3">
+                        <label for="inputmodelo">Modelo</label>
+                         <input type="text" name="model" class="form-control" id="inputmodelo"  value="{{pro.model}}" required="true">
+                        </div>
+                        
+                      </div>
+                    </div><!-- Cierre del Panel Cabecera -->
+
+                    <div class="panel-body">
+
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <label for="selectcategoria">Categoría</label>
+                            <select id="selectcategoria" name="idcategoria" class="form-control select2" style="width: 100%;">
+                            
+                            {% for cat in category %}
+
+                             <option value="{{cat.id}}">{{cat.name}}</option>
+    
+                            {% endfor %}                            
+                                                        
+                                                                                    
+                          </select>
+                        </div>
+                        
+                        <div class="col-sm-3">
+                         <label for="inputcodigo">Codigo</label>
+                         <input type="text" name="code" class="form-control" id="inputcodigo" value="{{pro.code}}" required="true">
+                        </div>
+
+                        
+                    </div>    
+                   </div> <!-- Cierre del Panel Contenido -->
+                   </div><!-- Cierre del Panel -->
+
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                          <label for="inputImagen">Actualizar Imagen:</label>
+                          <input type="file" name="image" class="form-control" id="inputImagen">
+                          <img src="{% static 'media/default.png' %}" height="100px" width="100px" class="img-thumbnail">
+                          </div>
+                    </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary btn-update">Actualizar</button>
+              </div>
+              
+              
+              <!-- /.form finish -->
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+          
+        </form>
+      </div>
+        <!-- /.modal -->

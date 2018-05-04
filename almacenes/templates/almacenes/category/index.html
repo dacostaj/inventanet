@@ -1,0 +1,106 @@
+{% extends "almacenes/master.html" %}
+{% load staticfiles %}
+
+{% block title %}Index - Net-Technology{% endblock title %}
+
+
+{% block css %}
+
+<!-- DataTables -->
+  <link rel="stylesheet" href="{% static 'bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'personal/css/btnflotante.css' %}">
+  <link rel="stylesheet" href="{% static 'personal/css/estilo.css' %}">
+
+{% endblock css %}
+
+  
+{% block PanelControl %}Categorias de Productos{% endblock PanelControl %}
+
+{% block content %}
+<div id="alerta"></div>
+
+<div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          
+            <div class="box">
+            
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="idtablacategoria" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Nombre</th>
+                  <th>Descripción</th>
+                  <th>Acción</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for cat in category  %}
+                  
+                  <tr>
+                      <td>{{cat.id}}</td>
+                      <td>{{cat.name}}</td>
+                      <td>{{cat.description}}</td>
+                      <td>
+                        <button value="{{cat.id}}" data-target="#modal-update-{{cat.id}}" data-toggle="modal" class="btn btn-primary btn-edit"><i class="fa fa-edit"></i></button>
+                        <button value="{{cat.id}}" class="btn btn-danger btn-destroy"><i class="fa fa-close"></i></button>
+
+                     </td>
+                    </tr>   
+                    {% include "almacenes/category/edit.html" %} 
+                  {% endfor %}  
+                   
+                
+                                          
+                 </tbody>
+                
+              </table>
+                             
+            </div>
+            <!-- /.box-body -->
+
+          </div>
+         
+
+          <!-- /.info-box -->
+        </div>
+        
+   </div>
+      <!-- /.row -->
+
+<div class="contenedor">
+  <button type="button" class="botonF btn-primary" data-toggle="modal" data-target="#modal-create"><i class="fa fa-plus"></i></button>
+  </div>
+{% include "almacenes/category/create.html" %}
+
+
+{% block script %}
+  
+  <!-- DataTables -->
+  <script src="{% static 'bower_components/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+  <script src="{% static 'bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+    <script>
+
+      $(function () {
+        $('#idtablacategoria').DataTable(
+          {
+            
+            'lengthMenu'  : [7, 15, 20, 50, 100]
+        });
+       
+      });
+    </script>
+
+    <script src="{% static 'personal/js/category/updatecategoria.js' %}"></script>
+    <script src="{% static 'personal/js/category/destroy.js' %}"></script>
+    <script src="{% static 'personal/js/category/create.js' %}"></script>
+   
+    
+
+    {% endblock script %}
+ 
+
+  
+{% endblock content %}
+	

@@ -1,0 +1,156 @@
+<div class="modal fade" id="modal-create">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Nuevo Ingreso</h4>
+              </div>
+              <div class="modal-body">
+                
+                <!-- form start -->
+                <form class="form-horizontal" method="POST" action="">
+                  {% csrf_token %}
+             
+                  
+                   <div class="box-body form-horizontal">
+
+                    <div class="row">
+                     <div class="form-group">
+                        
+                        <div class="col-sm-4">
+                          <label for="inputproveedor">Proveedor</label>
+                          <select name="idproveedor" class="form-control select2" style="width: 100%;" required="true">
+                            
+                            {% for prov in provider %}
+                              
+                                                          
+                                <option value="{{prov.id}}">{{prov.name}}</option>
+                            
+                            {% endfor %}                            
+                                                      
+                                                                                                            
+                        </select>
+
+                        </div>
+                        
+                        <div class="col-sm-4">
+                         <label for="idnum_ingreso">Cod. orden de compra</label>
+                          <input type="text" id="idnum_ingreso" name="num_ingreso" class="form-control" placeholder="Número Ingreso" required="true">
+                        </div>
+                        
+                        <div class="col-sm-2">
+                          <label for="btn_add"></label>
+                          <button type="button" id="btn_add" class="btn btn-primary form-control">Agregar Producto</button>
+                        </div>
+                        
+                        
+                    </div>
+
+                   
+                  </div><!-- Cierre del Div Row1 -->
+                    
+            <div class="row">
+            <div class="alert alert-warning alert-dismissible" id="alertaingreso"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><h4><i class="icon fa fa-info"></i>Alerta!</h4>Error al ingresar el detalle de ingreso, revise los datos del articulo</div>  
+            <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <div class="form-group">
+                        
+                        <div class="col-sm-4">
+                          <label for="pidarticulo">Producto</label>
+                          <select name="pidarticulo" class="form-control select2" style="width: 100%;" required="true" id="pidarticulo">
+                            
+                            <option value="ninguno" selected="true">---------------------</option>
+                           
+                           {% for prod in product  %}
+                                                                                        
+                                <option value="{{prod.id}}">{{prod.description}}</option>
+                           
+                           {% endfor %}                          
+                            
+                                                             
+                        </select>
+
+                        </div>
+
+                        <div class="col-sm-2">
+                          <label for="idinputcantidad">Cantidad</label>
+                          <input type="number" min="1" id="idinputcantidad" name="cantidad" class="form-control" placeholder="Cantidad">
+                        </div>
+                        
+                        <div class="col-sm-2">
+                         <label for="idinputpcompra">Precio Compra</label>
+                          <input type="number" min="1" id="idinputpcompra" name="pcompra" class="form-control" placeholder="P. Compra">
+                        </div>
+
+                        <div class="col-sm-4">
+                         <label for="idinputserial">Serial</label>
+                          <input type="text" id="idinputserial" name="serial" class="form-control" placeholder="Serial">
+                        </div>
+
+                        
+                        
+                    </div>
+
+            </div><!-- Cierre del Panel Cabecera -->
+            <div class="panel-body">
+              
+            <table id="idtabladetalle" class="table table-bordered table-hover">
+                <thead>
+                <tr>
+                  <th>Opciones</th>
+                  <th>Artículo</th>
+                  <th>Cantidad</th>
+                  <th>P. Compra</th>
+                  <th>Serial</th>
+                  <th>Subtotal</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                  <th>TOTAL</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                  <th><h4 id="total">$ 0</h4></th>
+                </tr>
+                </tfoot>
+                <tbody>
+                              
+
+                </tbody>
+                
+              </table>
+
+
+            </div> <!-- Cierre del Panel Contenido -->
+              
+
+
+            </div><!-- Cierre del Panel -->
+
+
+
+            </div> <!-- Cierre del Div Row2 -->
+
+
+
+              </div><!-- Cierre del Div Body -->
+      
+                <!-- Contenido -->
+
+
+              <div class="modal-footer">
+                <button type="reset" class="btn btn-default pull-left" data-dismiss="modal">Cerrar</button>
+                <button id="guardar" type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+              </form>
+              <!-- /.form finish -->
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
